@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo getting started 
+  pre_build:
+    on-failure: ABORT 
+    commands:
+      - echo Installing NPM Dependencies
+      - npm install 
+      - aws --version
+  build:
+    on-failure: CONTINUE
+    commands:
+      - echo Building start on 'date'
+      - npm run build 
+      - echo Build finished, now Moving to S3
+artifacts:
+  files:
+    - '**/*'
+  name: demo-project-artifact
